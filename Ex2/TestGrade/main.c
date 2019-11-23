@@ -7,7 +7,7 @@
 
 int main()
 {
-	char folder_path[] = "C:\\Users\\user\\source\\repos\\SonyT98\\ISP_ex2\\Ex2\\TestGrade\\test1\\grades_747489477";
+	char folder_path[] = "C:\\Users\\user\\source\\repos\\SonyT98\\ISP_ex2\\Ex2\\TestGrade\\test6\\grades_673938188";
 	int grades_array[NUM_GRADES];
 	int final_grade = 0;
 
