@@ -119,10 +119,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="TestGradeFunctions.c" />
     <ClCompile Include="ThreadFunctions.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardCodedData.h" />
+    <ClInclude Include="TestGradeFunctions.h" />
     <ClInclude Include="ThreadFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
