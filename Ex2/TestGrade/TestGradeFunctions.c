@@ -26,8 +26,7 @@ int ReadAllGrades(char *folder_path, int* grades_array)
 	"moedA.txt",
 	"moedB.txt" };
 
-	// change directory to the student grades folder
-	change_diractory_err = chdir(folder_path);
+
 
 	// create all ex threads in a loop
 	for (i = 0; i < NUM_THREADS; i++)
@@ -133,4 +132,33 @@ double CalculateBestExercisesAvg(int *grades_array)
 			sum_exercises = sum_exercises + grades_array[i];
 	}
 	return (sum_exercises / 8);
+}
+
+int PrintFinalGradeToFile(char *folder_path, int final_grade)
+{
+	FILE* fp = NULL;
+	char *id_str = NULL;
+	char filename[FINAL_FILENAME_LENGTH] = "";
+	int path_length = strlen(folder_path);
+	errno_t err = 0;
+	// Create the file name with the correct id
+	id_str = folder_path + path_length - 9;
+	err = sprintf_s(filename, FINAL_FILENAME_LENGTH, "final_%s.txt", id_str);
+	if (err == ERROR_CODE)
+	{
+		printf("Error: sprintf has failed");
+		return ERROR_CODE;
+	}
+	// Open the file and check for opening errors
+	fopen_s(&fp, filename, "w");
+	if (fp == NULL)
+	{
+		printf("Error: couldn't open the file %s", filename);
+		return ERROR_CODE;
+	}
+	
+	fprintf(fp, "%d", final_grade);
+	fclose(fp);
+
+	return 0;
 }

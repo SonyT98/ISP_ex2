@@ -6,6 +6,7 @@
 #define NUM_GRADES 13
 #define NUM_EXERCISES 10
 #define MAX_FILNAME_LENGTH 13
+#define FINAL_FILENAME_LENGTH 20
 #define ERROR_CODE ((int)(-1))
 
 // Grades array mapping  
