@@ -9,6 +9,8 @@
 #include <windows.h>
 #include <limits.h>
 #include <string.h>
+#include "HardCodedData.h"
+#include "ThreadFunctions.h"
 
 // Function Declarations -------------------------------------------------------
 
