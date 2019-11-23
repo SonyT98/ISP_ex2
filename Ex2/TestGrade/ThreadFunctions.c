@@ -12,15 +12,15 @@ HANDLE CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 
 	if (NULL == p_start_routine)
 	{
-		printf("Error when creating a thread");
-		printf("Received null pointer");
+		printf("Error when creating a thread\n");
+		printf("Received NULL pointer\n");
 		exit(ERROR_CODE);
 	}
 
 	if (NULL == p_thread_id)
 	{
-		printf("Error when creating a thread");
-		printf("Received null pointer");
+		printf("Error when creating a thread\n");
+		printf("Received NULL pointer\n");
 		exit(ERROR_CODE);
 	}
 
@@ -44,6 +44,7 @@ HANDLE CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 
 DWORD WINAPI ReadGrade(LPVOID lpParam)
 {
+	Sleep(10);
 	//variables
 	FILE* grade_file = NULL;
 	char grade_string[4] = "";
@@ -74,4 +75,28 @@ DWORD WINAPI ReadGrade(LPVOID lpParam)
 	fclose(grade_file);
 
 	return grade_num;
+}
+
+int CloseThreads(HANDLE* p_thread_handles)
+{
+	int i = 0, ret_val = 0;
+	// Close thread handles
+	for (i = 0; i < NUM_THREADS; i++)
+	{
+		if (p_thread_handles[i] != NULL)
+		{
+			ret_val = CloseHandle(p_thread_handles[i]);
+			if (false == ret_val)
+			{
+				printf("Error when closing\n");
+				return ERROR_CODE;
+			}
+		}
+		else
+		{
+			printf("Error when closing\n");
+			return ERROR_CODE;
+		}
+	}
+	return 0;
 }

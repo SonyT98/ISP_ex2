@@ -9,6 +9,7 @@
 #include <windows.h>
 #include <limits.h>
 #include <string.h>
+#include <math.h>
 #include "HardCodedData.h"
 #include "ThreadFunctions.h"
 
@@ -43,5 +44,14 @@ int CalculateFinalGrade(int* grades_array);
 *	returns -1 if the file operations fail.
 */
 int PrintFinalGradeToFile(char *folder_path, int final_grade);
+
+/*
+* calculate the 8 best exercises grades averege.
+* Input Arguments:
+*	grades_array: the array of grades of the student.
+* Return:
+*	returns the final avg.
+*/
+double CalculateBestExercisesAvg(int *grades_array);
 
 #endif // __HARDCODEDDATA_H___

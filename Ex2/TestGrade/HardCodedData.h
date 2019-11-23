@@ -4,6 +4,7 @@
 
 #define NUM_THREADS 13
 #define NUM_GRADES 13
+#define NUM_EXERCISES 10
 #define MAX_FILNAME_LENGTH 13
 #define ERROR_CODE ((int)(-1))
 

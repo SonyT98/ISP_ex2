@@ -47,5 +47,14 @@ HANDLE CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 */
 DWORD WINAPI ReadGrade(LPVOID lpParam);
 
+/*
+* Close Thread handle
+* Input Arguments :
+*	p_thread_handles: array of the threads handels
+* Return :
+*	return -1 if the thread wont close.
+*/
+int CloseThreads(HANDLE* p_thread_handles);
+
 #endif // __THREADFUNCTIONS_H___
 
