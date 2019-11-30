@@ -4,9 +4,9 @@
 int ReadAllGrades(char *folder_path, int* grades_array)
 {
 	// variables
-	HANDLE p_thread_handles[NUM_THREADS];
-	DWORD p_thread_ids[NUM_THREADS];
-	DWORD wait_code;
+	HANDLE p_thread_handles[NUM_THREADS] = { NULL };
+	DWORD p_thread_ids[NUM_THREADS] = {0};
+	DWORD wait_code = 0;
 
 	int change_diractory_err = 0, exit_code = 0, i = 0, error_val = 0;
 
@@ -32,10 +32,14 @@ int ReadAllGrades(char *folder_path, int* grades_array)
 	for (i = 0; i < NUM_THREADS; i++)
 	{
 		p_thread_handles[i] = CreateThreadSimple(ReadGrade, &p_thread_ids[i], (void*)filenames[i]);
-		
-
+		if (p_thread_handles[i] == NULL)
+		{
+			error_val = CloseThreads(p_thread_handles, i);
+			return ERROR_CODE;
+		}
 	}
-	// check if thread creation failed
+	
+
 
 	// wait for all thread to finish
 	wait_code = WaitForMultipleObjects(NUM_THREADS, p_thread_handles, TRUE, INFINITE);
@@ -43,7 +47,7 @@ int ReadAllGrades(char *folder_path, int* grades_array)
 	if ((WAIT_FAILED == wait_code) || (WAIT_TIMEOUT == wait_code))
 	{
 		printf("Error when waiting\n");
-		CloseThreads(p_thread_handles);
+		error_val = CloseThreads(p_thread_handles, NUM_THREADS);
 		return ERROR_CODE;
 	}
 
@@ -56,13 +60,13 @@ int ReadAllGrades(char *folder_path, int* grades_array)
 		if (error_val == 0)
 		{
 			printf("Error getting exit code from thread\n");
-			CloseThreads(p_thread_handles);
+			error_val = CloseThreads(p_thread_handles,NUM_THREADS);
 			return ERROR_CODE;
 		}
 		// check if thread error
 		else if (exit_code == -1)
 		{
-			CloseThreads(p_thread_handles);
+			error_val = CloseThreads(p_thread_handles, NUM_THREADS);
 			return ERROR_CODE;
 		}
 		else
@@ -71,31 +75,42 @@ int ReadAllGrades(char *folder_path, int* grades_array)
 		}
 	}
 	//close all the threads
-	if (CloseThreads(p_thread_handles) == ERROR_CODE)
+	if (CloseThreads(p_thread_handles, NUM_THREADS) == ERROR_CODE)
 		return ERROR_CODE;
 	return 0;
 }
 
 int CalculateFinalGrade(int* grades_array)
 {
-	//varibales
+	//variables
 	int i = 0, exam_grade = 0, midterm_grade = 0;
 	double ex_avg = 0, final_grade = 0;
+
+	// zeroing the grades if less then 60.
 	for (i = EX1; i <= MOED_A; i++)
 	{
 		if (grades_array[i] < 60)
 			grades_array[i] = 0;
 	}
+	// calculate the average of the best 8 exercise 
 	ex_avg = CalculateBestExercisesAvg(grades_array);
+
+	// check if the student took to MoedB and change
+	// the exam grade to the last exam that was taken.
 	if (grades_array[MOED_B] == 0)
 		exam_grade = grades_array[MOED_A];
 	else if (grades_array[MOED_B] < 60)
 		exam_grade = 0;
 	else
 		exam_grade = grades_array[MOED_B];
+
+	// extract the midterm grade to separate variable
 	midterm_grade = grades_array[MIDTERM];
+	//calculate the final grade
 	final_grade = 0.2*(ex_avg + midterm_grade) + 0.6*exam_grade;
+	// round the result up
 	final_grade = ceil(final_grade);
+
 	return final_grade;
 }
 

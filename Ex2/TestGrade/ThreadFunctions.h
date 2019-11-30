@@ -48,13 +48,14 @@ HANDLE CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine,
 DWORD WINAPI ReadGrade(LPVOID lpParam);
 
 /*
-* Close Thread handle
+* Close Thread handles from thread array in places 0 - last_thread.
 * Input Arguments :
-*	p_thread_handles: array of the threads handels
+*	p_thread_handles:	array of the threads handles
+*	last_thread:		int of the place to the last thread to be closed
 * Return :
 *	return -1 if the thread wont close.
 */
-int CloseThreads(HANDLE* p_thread_handles);
+int CloseThreads(HANDLE* p_thread_handles, int last_thread);
 
 #endif // __THREADFUNCTIONS_H___
 

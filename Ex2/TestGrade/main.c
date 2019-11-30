@@ -5,11 +5,19 @@
 #include "HardCodedData.h"
 #include "TestGradeFunctions.h"
 
-int main()
+int main(int* argc,char **argv)
 {
-	char folder_path[] = "C:\\Users\\user\\source\\repos\\SonyT98\\ISP_ex2\\Ex2\\TestGrade\\test6\\grades_673938188";
-	int grades_array[NUM_GRADES];
+	char *folder_path = NULL;
+	int grades_array[NUM_GRADES] = {0};
 	int final_grade = 0;
+
+	if (argc != 2)
+	{
+		printf("Error: not enough arguments for TestGrade");
+		return ERROR_CODE;
+	}
+	
+	folder_path = argv[1];
 
 	// change directory to the student grades folder
 	if (chdir(folder_path) == ERROR_CODE)
