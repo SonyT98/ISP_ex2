@@ -22,7 +22,7 @@ int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH])
 
 	if (error_flag == ERROR_CODE)
 	{
-		fprintf(stderr, "Error: sprintf has failed");
+		fprintf(stderr, "Error: sprintf has failed\n");
 		return ERROR_CODE;
 	}
 
@@ -45,7 +45,7 @@ int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH])
 		// fill the ids table
 		if (error_flag) 
 		{
-			printf("error using strcpy");
+			printf("error using strcpy\n");
 			fclose(idsFile);
 			return ERROR_CODE;
 		}
@@ -92,7 +92,7 @@ int WriteFinalGradesFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH], 
 	
 	if (error_flag == ERROR_CODE)
 	{
-		fprintf(stderr, "Error: sprintf has failed");
+		fprintf(stderr, "Error: sprintf has failed\n");
 		return ERROR_CODE;
 	}
 
@@ -111,7 +111,7 @@ int WriteFinalGradesFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH], 
 		error_flag = fprintf_s(gradesFile, "%s %d\n", ids[i], grades[i]);
 		if (error_flag < 0)//if the fprintf failed
 		{
-			fprintf(stderr, "fprintf failed");
+			fprintf(stderr, "fprintf failed\n");
 			return ERROR_CODE;
 		}
 	}

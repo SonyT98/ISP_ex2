@@ -68,7 +68,7 @@ DWORD WINAPI ReadGrade(LPVOID lpParam)
 	//check fgets error
 	if (grade_string == NULL)
 	{
-		printf("Couldn't read from file");
+		printf("Couldn't read from file\n");
 		fclose(grade_file);
 		return ERROR_CODE;
 	}

@@ -5,7 +5,7 @@
 #include "HardCodedData.h"
 #include "TestGradeFunctions.h"
 
-int main(int* argc,char **argv)
+int main(int argc,char **argv)
 {
 	char *folder_path = NULL;
 	int grades_array[NUM_GRADES] = {0};
@@ -13,7 +13,7 @@ int main(int* argc,char **argv)
 
 	if (argc != 2)
 	{
-		printf("Error: not enough arguments for TestGrade");
+		printf("Error: not enough arguments for TestGrade\n");
 		return ERROR_CODE;
 	}
 	
@@ -22,7 +22,7 @@ int main(int* argc,char **argv)
 	// change directory to the student grades folder
 	if (chdir(folder_path) == ERROR_CODE)
 	{
-		printf("ERROR: %s directory wasn't found", folder_path);
+		printf("ERROR: %s directory wasn't found\n", folder_path);
 		return ERROR_CODE;
 	}
 
