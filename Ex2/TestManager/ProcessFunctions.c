@@ -9,17 +9,23 @@
 int CreateProcessTestGrade(char *input_path, char *id_string)
 {
 	CHAR *commandstring = NULL;
-	commandstring = (char*)malloc(sizeof(char)*(strlen(input_string) + 9));
+	int path_length = strlen(id_string) + strlen(input_path) + 9;
+	commandstring = (char*)malloc(sizeof(char)*(path_length));
 	if (commandstring == NULL)
 	{
 		fprintf(stderr, "Memory Not Allocated");
 		return ERROR_CODE;
 	}
-	int return_num = 0;
+	int return_num = 0, sprintf_err = 0, exitcode_err = 0;
 
-	// the string that we send to the command line, including the program name and the equation
-	strcpy(commandstring, "son.exe ");
-	strcat(commandstring, input_string);
+	// the string that we send to the command line, the folder path
+	sprintf_err = sprintf_s(commandstring, path_length, "%s\grades_%s", input_path, id_string);
+	if (sprintf_err == ERROR_CODE)
+	{
+		fprintf(stderr, "Error: sprintf has failed");
+		return ERROR_CODE;
+	}
+	
 
 	PROCESS_INFORMATION procinfo;
 	DWORD				waitcode;
@@ -34,7 +40,7 @@ int CreateProcessTestGrade(char *input_path, char *id_string)
 	{
 		fprintf(stderr, "Process Creation Failed!\n");
 		free(commandstring);
-		return PROCESS_CREATION_FAILED;
+		return ERROR_CODE;
 	}
 
 
@@ -51,12 +57,30 @@ int CreateProcessTestGrade(char *input_path, char *id_string)
 			procinfo.hProcess,
 			BRUTAL_TERMINATION_CODE); /* Terminating process with an exit code of 55h */
 		Sleep(10); /* Waiting a few milliseconds for the process to terminate */
-		return_num = PROCESS_ACCEDED_TIMEOUT;
+		return_num = ERROR_CODE;
+	}
+	else if(waitcode == WAIT_FAILED)/* Wait function failed */
+	{
+		fprintf(stderr, "Wait for process function failed\n");
+		TerminateProcess(
+			procinfo.hProcess,
+			BRUTAL_TERMINATION_CODE); /* Terminating process with an exit code of 55h */
+		Sleep(10); /* Waiting a few milliseconds for the process to terminate */
+		return_num = ERROR_CODE;
 	}
 	else
 	{
 		// if there is no timeout, we will get the exit code
-		GetExitCodeProcess(procinfo.hProcess, &exitcode);
+		exitcode_err = GetExitCodeProcess(procinfo.hProcess, &exitcode);
+		// check if GetExitCodeProcess error
+		if (exitcode_err == 0)
+		{
+			fprintf(stderr, "Error getting exit code from process\n");
+			CloseHandle(procinfo.hProcess); /* Closing the handle to the process */
+			CloseHandle(procinfo.hThread); /* Closing the handle to the main thread of the process */
+			free(commandstring);
+			return ERROR_CODE;
+		}
 		return_num = (int)exitcode;
 	}
 
