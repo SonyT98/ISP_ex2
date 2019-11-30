@@ -9,4 +9,7 @@
 #define FINAL_FILENAME_LENGTH 20
 #define ERROR_CODE ((int)(-1))
 
+#define ID_STR_LENGTH 10
+#define MAX_NUM_STUDENTS 10
+
 #endif // __HARDCODEDDATA_H___

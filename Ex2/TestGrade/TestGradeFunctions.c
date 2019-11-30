@@ -165,7 +165,7 @@ int PrintFinalGradeToFile(char *folder_path, int final_grade)
 		return ERROR_CODE;
 	}
 	// Open the file and check for opening errors
-	fopen_s(&fp, filename, "w");
+	err = fopen_s(&fp, filename, "w");
 	if (fp == NULL)
 	{
 		printf("Error: couldn't open the file %s", filename);

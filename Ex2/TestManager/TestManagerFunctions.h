@@ -26,7 +26,7 @@
 *	the number of students in the list. return -1 if failed.
 */
 
-int GetIdsFromFile(char *path, char **ids);
+int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH]);
 
 /*
 * getStudentsFinalGrades gets all students final grades by calling the TestGrade process.
@@ -43,17 +43,17 @@ int GetStudentsFinalGrades(char *path, char **ids,int number_of_students, int **
 
 
 /*
-* WriteFinalGradesFile gets all students final grades by calling the TestGrade process.
+* WriteFinalGradesFile write all finals grade finalGrades.txt.
 * Input Arguments:
 *	path					- Full path to the main folder containing studentIds.txt
 *	ids						- array of string containing students ids.
 *	number_of_students		- the number of students in ids array.
-*	grades					- array of integers to be filled with the students grades.
+*	grades					- array students grade.
 * Return:
 *	 return -1 if failed.
 */
 
 
-int WriteFinalGradesFile(char **ids, int number_of_students, int **grades);
+int WriteFinalGradesFile(char *path,char **ids, int number_of_students, int **grades);
 
 #endif // __TESTMANAGERFUNCTIONS_H___
