@@ -9,7 +9,7 @@
 int CreateProcessTestGrade(char *input_path, char *id_string)
 {
 	CHAR *commandstring = NULL;
-	int path_length = strlen(id_string) + strlen(input_path) + 9;
+	int path_length = strlen(id_string) + strlen(input_path) + 25;
 	commandstring = (char*)malloc(sizeof(char)*(path_length));
 	if (commandstring == NULL)
 	{
@@ -19,7 +19,7 @@ int CreateProcessTestGrade(char *input_path, char *id_string)
 	int return_num = 0, sprintf_err = 0, exitcode_err = 0;
 
 	// the string that we send to the command line, the folder path
-	sprintf_err = sprintf_s(commandstring, path_length, "%s\grades_%s", input_path, id_string);
+	sprintf_err = sprintf_s(commandstring, path_length, "TestGrade.exe %s\\grades_%s", input_path, id_string);
 	if (sprintf_err == ERROR_CODE)
 	{
 		fprintf(stderr, "Error: sprintf has failed");

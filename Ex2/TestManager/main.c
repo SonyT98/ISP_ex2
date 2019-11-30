@@ -7,13 +7,18 @@
 
 int main()
 {
-	char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH] = { "1", "2", "3","4","5","6","7","8","9","10"};
-	char *path = "C:\\Users\\User\\source\\repos\\SonyT98\\ISP_ex2\\Ex2\\TestGrade\\test1";
+	char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH] = { "" };
+	char *path = "C:\\Users\\user\\source\\repos\\SonyT98\\ISP_ex2\\Ex2\\TestGrade\\test6";
+	int grades[10] = { 0 };
+	int err = 0, num = 0;
 
-	GetIdsFromFile(path, ids);
-
-
-
+	num = GetIdsFromFile(path, ids);
+	err = GetStudentsFinalGrades(path, ids, num, grades);
+	if (err == ERROR_CODE)
+	{
+		return ERROR_CODE;
+	}
+	return 1;
 }
 
 

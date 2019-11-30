@@ -36,12 +36,10 @@ int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH])
 		return ERROR_CODE;
 	}
 	
-	// while loop until reach end of file
-	while (!feof(idsFile))
+	// while loop until reach end of file & read one line
+	while (fgets(current_id, ID_STR_LENGTH + 1, idsFile) != NULL)
 	{
 
-		// read one line
-		fgets(current_id, ID_STR_LENGTH +1, idsFile);
 		current_id[ID_STR_LENGTH - 1] = '\0';
 		error_flag = strcpy_s(ids[number_of_students], ID_STR_LENGTH + 1, current_id);
 		// fill the ids table
@@ -52,6 +50,27 @@ int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH])
 			return ERROR_CODE;
 		}
 		number_of_students++;
+	}
+	return number_of_students;
+}
+
+int GetStudentsFinalGrades(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH], int number_of_students, int *grades)
+{
+	//varibales
+	int i = 0, process_exit_code = 0;
+
+	//create each process
+	for (i = 0; i < number_of_students; i++)
+	{
+		process_exit_code = CreateProcessTestGrade(path, ids[i]);
+		if (process_exit_code == ERROR_CODE)
+		{
+			//if the process number i failed
+			fprintf(stderr, "Captain, we were unable to calculate %s\n", ids[i]);
+			return ERROR_CODE;
+		}
+		//final grade of the i's students
+		grades[i] = process_exit_code;
 	}
 	return 0;
 }

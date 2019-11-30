@@ -39,7 +39,7 @@ int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH]);
 *	 return -1 if failed.
 */
 
-int GetStudentsFinalGrades(char *path, char **ids,int number_of_students, int **grades);
+int GetStudentsFinalGrades(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH],int number_of_students, int *grades);
 
 
 /*
