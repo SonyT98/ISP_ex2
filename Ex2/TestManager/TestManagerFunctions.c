@@ -55,3 +55,60 @@ int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH])
 	}
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int WriteFinalGradesFile(char *path, char **ids, int number_of_students, int **grades)
+{
+	char* filename = NULL;
+	int error_flag = -1, i = 0;
+	FILE* gradesFile = NULL;
+	filename = (char*)malloc(sizeof(char)*(strlen(path) + 19));
+	
+	if (filename == NULL)
+	{
+		printf("Error allocating memory\n");
+		return ERROR_CODE;
+	}
+
+	error_flag = sprintf_s(filename, strlen(path) + 19, "%s\\final_grades.txt", path);
+	
+	if (error_flag == ERROR_CODE)
+	{
+		fprintf(stderr, "Error: sprintf has failed");
+		return ERROR_CODE;
+	}
+
+	// open the file
+	error_flag = fopen_s(&gradesFile, filename, "w");
+
+	// check fopen failure 
+	if (gradesFile == NULL)
+	{
+		printf("Error opening File - %s\n", filename);
+		return ERROR_CODE;
+	}
+
+	for (i = 0, i < number_of_students, i++)
+	{
+		error_flag = fprintf_s(gradesFile, "%s %s\n", ids[i], grades[i]);
+
+	}
+
+
+}
