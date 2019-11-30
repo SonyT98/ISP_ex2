@@ -54,6 +54,6 @@ int GetStudentsFinalGrades(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH]
 */
 
 
-int WriteFinalGradesFile(char *path,char **ids, int number_of_students, int **grades);
+int WriteFinalGradesFile(char *path,char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH], int number_of_students, int *grades);
 
 #endif // __TESTMANAGERFUNCTIONS_H___

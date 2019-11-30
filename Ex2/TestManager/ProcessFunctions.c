@@ -9,7 +9,7 @@
 int CreateProcessTestGrade(char *input_path, char *id_string)
 {
 	CHAR *commandstring = NULL;
-	int path_length = strlen(id_string) + strlen(input_path) + 25;
+	int path_length = strlen(id_string) + strlen(input_path) + COMMAND_LINE_EXTENSION;
 	commandstring = (char*)malloc(sizeof(char)*(path_length));
 	if (commandstring == NULL)
 	{

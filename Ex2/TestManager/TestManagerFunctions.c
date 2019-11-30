@@ -11,7 +11,7 @@ int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH])
 	char current_id[ID_STR_LENGTH + 1] = "";
 	int error_flag = -1;
 	// create filename 
-	filename = (char*)malloc(sizeof(char)*(strlen(path) + 18));
+	filename = (char*)malloc(sizeof(char)*(strlen(path) + ID_FILE_EXTENSION));
 	if (filename == NULL)
 	{
 		printf("Error allocating memory\n");
@@ -75,29 +75,12 @@ int GetStudentsFinalGrades(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH]
 	return 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-int WriteFinalGradesFile(char *path, char **ids, int number_of_students, int **grades)
+int WriteFinalGradesFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH], int number_of_students, int *grades)
 {
 	char* filename = NULL;
 	int error_flag = -1, i = 0;
 	FILE* gradesFile = NULL;
-	filename = (char*)malloc(sizeof(char)*(strlen(path) + 19));
+	filename = (char*)malloc(sizeof(char)*(strlen(path) + FINAL_GRADES_FILE_EXTENSION));
 	
 	if (filename == NULL)
 	{
@@ -123,11 +106,15 @@ int WriteFinalGradesFile(char *path, char **ids, int number_of_students, int **g
 		return ERROR_CODE;
 	}
 
-	for (i = 0, i < number_of_students, i++)
+	for (i = 0; i < number_of_students; i++)
 	{
-		error_flag = fprintf_s(gradesFile, "%s %s\n", ids[i], grades[i]);
-
+		error_flag = fprintf_s(gradesFile, "%s %d\n", ids[i], grades[i]);
+		if (error_flag < 0)//if the fprintf failed
+		{
+			fprintf(stderr, "fprintf failed");
+			return ERROR_CODE;
+		}
 	}
-
-
+	fclose(gradesFile);
+	return 0;
 }
