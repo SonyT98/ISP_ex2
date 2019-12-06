@@ -88,6 +88,7 @@ DWORD WINAPI ReadGrade(LPVOID lpParam)
 
 int CloseThreads(HANDLE* p_thread_handles, int last_thread)
 {
+	int return_num = 0;
 	int i = 0, ret_val = 0;
 	// Close thread handles
 	for (i = 0; i < last_thread; i++)
@@ -97,15 +98,15 @@ int CloseThreads(HANDLE* p_thread_handles, int last_thread)
 			ret_val = CloseHandle(p_thread_handles[i]);
 			if (false == ret_val)
 			{
-				printf("Error when closing\n");
-				return ERROR_CODE;
+				printf("Error when closing thread handle\n");
+				return_num = ERROR_CODE;
 			}
 		}
 		else
 		{
-			printf("Error when closing\n");
-			return ERROR_CODE;
+			printf("Error when closing thread handle\n");
+			return_num = ERROR_CODE;
 		}
 	}
-	return 0;
+	return return_num;
 }

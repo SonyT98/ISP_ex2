@@ -51,12 +51,7 @@ int CreateProcessTestGrade(char *input_path, char *id_string)
 
 	if (waitcode != WAIT_OBJECT_0) /* Process is still alive */
 	{
-		fprintf(stderr, "Process was not terminated before timeout!\n"
-			"Terminating brutally!\n");
-		TerminateProcess(
-			procinfo.hProcess,
-			BRUTAL_TERMINATION_CODE); /* Terminating process with an exit code of 55h */
-		Sleep(10); /* Waiting a few milliseconds for the process to terminate */
+		fprintf(stderr, "Process was not terminated before timeout!\n");
 		return_num = ERROR_CODE;
 	}
 	else
