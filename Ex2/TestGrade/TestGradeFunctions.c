@@ -44,7 +44,7 @@ int ReadAllGrades(char *folder_path, int* grades_array)
 	// wait for all thread to finish
 	wait_code = WaitForMultipleObjects(NUM_THREADS, p_thread_handles, TRUE, INFINITE);
 	
-	if ((WAIT_FAILED == wait_code) || (WAIT_TIMEOUT == wait_code))
+	if (wait_code != WAIT_OBJECT_0)
 	{
 		printf("Error when waiting\n");
 		error_val = CloseThreads(p_thread_handles, NUM_THREADS);
@@ -64,7 +64,7 @@ int ReadAllGrades(char *folder_path, int* grades_array)
 			return ERROR_CODE;
 		}
 		// check if thread error
-		else if (exit_code == -1)
+		else if (exit_code == ERROR_CODE)
 		{
 			error_val = CloseThreads(p_thread_handles, NUM_THREADS);
 			return ERROR_CODE;
