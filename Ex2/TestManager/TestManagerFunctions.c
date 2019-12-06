@@ -1,6 +1,8 @@
-// Authors - Tomer Segal 207133646, Nadav Nave 209365725
-// Exercise 2 in the Course Introduction to system programming
-// This C file contains all the function related to 
+// Authors - Tomer Segal 207133646, Nadav Nave 209365725.
+// Exercise 2 in the Course Introduction to system programming.
+// This C file contains all the function related to the manager process include:
+// getting the list of ids from the file, get the students grade, and write the grade 
+// the output file.
 // 
 
 #include "TestManagerFunctions.h"
