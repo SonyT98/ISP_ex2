@@ -13,7 +13,7 @@ int CreateProcessTestGrade(char *input_path, char *id_string)
 	commandstring = (char*)malloc(sizeof(char)*(path_length));
 	if (commandstring == NULL)
 	{
-		fprintf(stderr, "Memory Not Allocated");
+		fprintf(stderr, "Memory Not Allocated\n");
 		return ERROR_CODE;
 	}
 	int return_num = 0, sprintf_err = 0, exitcode_err = 0;
@@ -22,7 +22,7 @@ int CreateProcessTestGrade(char *input_path, char *id_string)
 	sprintf_err = sprintf_s(commandstring, path_length, "TestGrade.exe %s\\grades_%s", input_path, id_string);
 	if (sprintf_err == ERROR_CODE)
 	{
-		fprintf(stderr, "Error: sprintf has failed");
+		fprintf(stderr, "Error: sprintf has failed\n");
 		return ERROR_CODE;
 	}
 	

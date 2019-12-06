@@ -161,14 +161,14 @@ int PrintFinalGradeToFile(char *folder_path, int final_grade)
 	err = sprintf_s(filename, FINAL_FILENAME_LENGTH, "final_%s.txt", id_str);
 	if (err == ERROR_CODE)
 	{
-		printf("Error: sprintf has failed");
+		printf("Error: sprintf has failed\n");
 		return ERROR_CODE;
 	}
 	// Open the file and check for opening errors
 	err = fopen_s(&fp, filename, "w");
 	if (fp == NULL)
 	{
-		printf("Error: couldn't open the file %s", filename);
+		printf("Error: couldn't open the file %s\n", filename);
 		return ERROR_CODE;
 	}
 	
