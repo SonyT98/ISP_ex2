@@ -1,7 +1,7 @@
 // Authors - Tomer Segal 207133646, Nadav Nave 209365725
 // Exercise 2 in the Course Introduction to system programming
-// This code create the TestGrade process and wait for it result
-// The code gets from the main function the parameters that the process needs
+// This C file contains all the function related to the process creation,
+// waiting for the end of the process and get the process exit code.
 
 #include "ProcessFunctions.h"
 
@@ -10,27 +10,29 @@ int CreateProcessTestGrade(char *input_path, char *id_string)
 {
 	CHAR *commandstring = NULL;
 	int path_length = strlen(id_string) + strlen(input_path) + COMMAND_LINE_EXTENSION;
-	commandstring = (char*)malloc(sizeof(char)*(path_length));
-	if (commandstring == NULL)
-	{
-		fprintf(stderr, "Memory Not Allocated\n");
-		return ERROR_CODE;
-	}
 	int return_num = 0, sprintf_err = 0, exitcode_err = 0;
-
-	// the string that we send to the command line, the folder path
-	sprintf_err = sprintf_s(commandstring, path_length, "TestGrade.exe %s\\grades_%s", input_path, id_string);
-	if (sprintf_err == ERROR_CODE)
-	{
-		fprintf(stderr, "Error: sprintf has failed\n");
-		return ERROR_CODE;
-	}
-	
 
 	PROCESS_INFORMATION procinfo;
 	DWORD				waitcode;
 	DWORD				exitcode;
 	BOOL				retVal;
+
+	commandstring = (char*)malloc(sizeof(char)*(path_length));
+	if (commandstring == NULL)// Check malloc error
+	{
+		fprintf(stderr, "Memory Not Allocated\n");
+		return ERROR_CODE;
+	}
+
+	// the string that we send to the command line, the folder path
+	sprintf_err = sprintf_s(commandstring, path_length, "TestGrade.exe %s\\grades_%s", input_path, id_string);
+	if (sprintf_err == ERROR_CODE)// Check sprintf error
+	{
+		fprintf(stderr, "Error: sprintf has failed\n");
+		free(commandstring);
+		return ERROR_CODE;
+	}
+	
 
 	//create the process with the create process simple function
 	retVal = CreateProcessSimple(commandstring, &procinfo);

@@ -13,7 +13,7 @@ int main(int argc,char **argv)
 	char *path = NULL;
 	int grades[10] = { 0 };
 	int err = 0, number_of_students = 0;
-	
+
 	// check number of input arguments
 	if (argc != 2)
 	{
@@ -46,6 +46,7 @@ int main(int argc,char **argv)
 		return ERROR_CODE;
 	}
 	printf("The grades have arrived, captain\n");
+
 	return 1;
 }
 
