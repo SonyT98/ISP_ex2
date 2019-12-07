@@ -51,7 +51,7 @@ int GetIdsFromFile(char *path, char ids[MAX_NUM_STUDENTS][ID_STR_LENGTH])
 	{
 
 		current_id[ID_STR_LENGTH - 1] = '\0';
-		error_flag = strcpy_s(ids[number_of_students], ID_STR_LENGTH + 1, current_id);
+		error_flag = strcpy_s(ids[number_of_students], ID_STR_LENGTH, current_id);
 		// fill the ids table
 		if (error_flag) 
 		{
